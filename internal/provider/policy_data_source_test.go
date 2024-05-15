@@ -24,5 +24,8 @@ func TestAccPolicyDataSource(t *testing.T) {
 
 const testAccExampleDataSourceConfig = `
 data "csp_policy" "test" {
+	directive {
+		name = "default-src"
+	}
 }
 `

@@ -18,8 +18,26 @@ func NewPolicyDataSource() datasource.DataSource {
 // PolicyDataSource defines the data source implementation.
 type PolicyDataSource struct{}
 
+type Hash struct {
+	Algorithm types.String `tfsdk:"algorithm"`
+	Value     types.String `tfsdk:"value"`
+}
+
+type Directive struct {
+	Name types.String `tfsdk:"name"`
+
+	Keywords []types.String `tfsdk:"keywords"`
+	Hosts    []types.String `tfsdk:"hosts"`
+	Schemes  []types.String `tfsdk:"schemes"`
+	Nonces   []types.String `tfsdk:"nonces"`
+
+	Hashes []Hash `tfsdk:"hash"`
+}
+
 // PolicyDataSourceModel describes the data source data model.
 type PolicyDataSourceModel struct {
+	Directives []Directive `tfsdk:"directive"`
+
 	Value types.String `tfsdk:"value"`
 }
 
@@ -35,6 +53,58 @@ func (d *PolicyDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 			"value": schema.StringAttribute{
 				Description: "The generated Content-Security-Policy header value.",
 				Computed:    true,
+			},
+		},
+
+		Blocks: map[string]schema.Block{
+			"directive": schema.ListNestedBlock{
+				Description: "Directives to include in the policy.",
+				NestedObject: schema.NestedBlockObject{
+					Attributes: map[string]schema.Attribute{
+						"name": schema.StringAttribute{
+							Description: "The name of the directive.",
+							Required:    true,
+						},
+						"keywords": schema.ListAttribute{
+							Description: "Keywords to include as values for the directive.",
+							ElementType: types.StringType,
+							Optional:    true,
+						},
+						"hosts": schema.ListAttribute{
+							Description: "Hosts to include as values for the directive.",
+							ElementType: types.StringType,
+							Optional:    true,
+						},
+						"schemes": schema.ListAttribute{
+							Description: "Schemes to include as values for the directive.",
+							ElementType: types.StringType,
+							Optional:    true,
+						},
+						// TODO: Figure out whether or not to include this
+						"nonces": schema.ListAttribute{
+							Description: "Nonces to include as values for the directive.",
+							ElementType: types.StringType,
+							Optional:    true,
+						},
+					},
+					Blocks: map[string]schema.Block{
+						"hash": schema.ListNestedBlock{
+							Description: "Hashes to include as values for the directive.",
+							NestedObject: schema.NestedBlockObject{
+								Attributes: map[string]schema.Attribute{
+									"algorithm": schema.StringAttribute{
+										Description: "The algorithm used to generate the hash.",
+										Required:    true,
+									},
+									"value": schema.StringAttribute{
+										Description: "The base64-encoded hash value.",
+										Required:    true,
+									},
+								},
+							},
+						},
+					},
+				},
 			},
 		},
 	}
