@@ -15,7 +15,7 @@ func TestAccPolicyDataSource(t *testing.T) {
 			{
 				Config: testAccExampleDataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.csp_policy.test", "id", "example-id"),
+					resource.TestCheckResourceAttr("data.csp_policy.test", "value", "TODO"),
 				),
 			},
 		},
