@@ -13,19 +13,26 @@ func TestAccPolicyDataSource(t *testing.T) {
 		Steps: []resource.TestStep{
 			// Read testing
 			{
-				Config: testAccExampleDataSourceConfig,
+				Config: testCspPolicyDataSourceSimple,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.csp_policy.test", "value", "TODO"),
+					resource.TestCheckResourceAttr("data.csp_policy.test", "value", testCspPolicyDataSourceSimpleValue),
 				),
 			},
 		},
 	})
 }
 
-const testAccExampleDataSourceConfig = `
+const testCspPolicyDataSourceSimple = `
 data "csp_policy" "test" {
 	directive {
-		name = "default-src"
+		name     = "default-src"
+		keywords = ["self"]
+	}
+	directive {
+		name     = "img-src"
+		keywords = ["self"]
+		hosts    = ["cdn.example.com"]
 	}
 }
 `
+const testCspPolicyDataSourceSimpleValue = "default-src 'self'; img-src 'self' cdn.example.com;"

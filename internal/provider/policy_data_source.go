@@ -30,6 +30,7 @@ type Directive struct {
 	Hosts    []types.String `tfsdk:"hosts"`
 	Schemes  []types.String `tfsdk:"schemes"`
 	Nonces   []types.String `tfsdk:"nonces"`
+	Values   []types.String `tfsdk:"values"`
 
 	Hashes []Hash `tfsdk:"hash"`
 }
@@ -47,7 +48,7 @@ func (d *PolicyDataSource) Metadata(ctx context.Context, req datasource.Metadata
 
 func (d *PolicyDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "TODO",
+		Description: "Generate a Content-Security-Policy header value.",
 
 		Attributes: map[string]schema.Attribute{
 			"value": schema.StringAttribute{
@@ -83,6 +84,11 @@ func (d *PolicyDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 						// TODO: Figure out whether or not to include this
 						"nonces": schema.ListAttribute{
 							Description: "Nonces to include as values for the directive.",
+							ElementType: types.StringType,
+							Optional:    true,
+						},
+						"values": schema.ListAttribute{
+							Description: "Any extra values to include in the directive.",
 							ElementType: types.StringType,
 							Optional:    true,
 						},
@@ -122,7 +128,7 @@ func (d *PolicyDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	data.Value = types.StringValue("TODO")
+	data.Value = types.StringValue(data.GeneratePolicy())
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }

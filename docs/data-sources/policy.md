@@ -3,18 +3,27 @@
 page_title: "csp_policy Data Source - csp"
 subcategory: ""
 description: |-
-  TODO
+  Generate a Content-Security-Policy header value.
 ---
 
 # csp_policy (Data Source)
 
-TODO
+Generate a Content-Security-Policy header value.
 
 ## Example Usage
 
 ```terraform
 data "csp_example" "example" {
+  directive {
+    name     = "default-src"
+    keywords = ["self"]
+  }
 
+  directive {
+    name     = "img-src"
+    keywords = ["self"]
+    hosts    = ["cdn.example.com"]
+  }
 }
 ```
 
@@ -43,6 +52,7 @@ Optional:
 - `keywords` (List of String) Keywords to include as values for the directive.
 - `nonces` (List of String) Nonces to include as values for the directive.
 - `schemes` (List of String) Schemes to include as values for the directive.
+- `values` (List of String) Any extra values to include in the directive.
 
 <a id="nestedblock--directive--hash"></a>
 ### Nested Schema for `directive.hash`
