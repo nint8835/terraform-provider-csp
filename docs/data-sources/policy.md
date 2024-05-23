@@ -13,7 +13,7 @@ Generate a Content-Security-Policy header value.
 ## Example Usage
 
 ```terraform
-data "csp_example" "example" {
+data "csp_policy" "example" {
   directive {
     name     = "default-src"
     keywords = ["self"]
