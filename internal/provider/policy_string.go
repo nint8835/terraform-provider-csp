@@ -14,12 +14,12 @@ func (d *Directive) GenerateDirective() string {
 		directiveStrings = append(directiveStrings, fmt.Sprintf("'%s'", keyword.ValueString()))
 	}
 
-	for _, host := range d.Hosts {
-		directiveStrings = append(directiveStrings, host.ValueString())
-	}
-
 	for _, scheme := range d.Schemes {
 		directiveStrings = append(directiveStrings, fmt.Sprintf("%s:", scheme.ValueString()))
+	}
+
+	for _, host := range d.Hosts {
+		directiveStrings = append(directiveStrings, host.ValueString())
 	}
 
 	for _, nonce := range d.Nonces {
