@@ -34,7 +34,7 @@ func (d *Directive) GenerateDirective() string {
 		directiveStrings = append(directiveStrings, value.ValueString())
 	}
 
-	return fmt.Sprintf("%s;", strings.Join(directiveStrings, " "))
+	return strings.Join(directiveStrings, " ")
 }
 
 func (p *PolicyDataSourceModel) GeneratePolicy() string {
@@ -43,5 +43,5 @@ func (p *PolicyDataSourceModel) GeneratePolicy() string {
 		directiveStrings[i] = directive.GenerateDirective()
 	}
 
-	return strings.Join(directiveStrings, " ")
+	return strings.Join(directiveStrings, "; ")
 }
