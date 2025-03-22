@@ -1,6 +1,6 @@
 module github.com/nint8835/terraform-provider-csp
 
-go 1.23
+go 1.24
 
 require (
 	github.com/hashicorp/terraform-plugin-docs v0.21.0
