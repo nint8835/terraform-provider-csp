@@ -3,7 +3,6 @@ module github.com/nint8835/terraform-provider-csp
 go 1.26.1
 
 require (
-	github.com/hashicorp/terraform-plugin-docs v0.24.0
 	github.com/hashicorp/terraform-plugin-framework v1.18.0
 	github.com/hashicorp/terraform-plugin-go v0.30.0
 	github.com/hashicorp/terraform-plugin-testing v1.14.0
@@ -42,6 +41,7 @@ require (
 	github.com/hashicorp/logutils v1.0.0 // indirect
 	github.com/hashicorp/terraform-exec v0.24.0 // indirect
 	github.com/hashicorp/terraform-json v0.27.2 // indirect
+	github.com/hashicorp/terraform-plugin-docs v0.24.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.10.0 // indirect
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.38.1 // indirect
 	github.com/hashicorp/terraform-registry-address v0.4.0 // indirect
@@ -83,3 +83,5 @@ require (
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+tool github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs
