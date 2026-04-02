@@ -1,27 +1,24 @@
-# Visit https://golangci-lint.run/ for usage documentation
-# and information on other useful linters
-issues:
-  max-per-linter: 0
-  max-same-issues: 0
+version: "2"
 
 linters:
-  disable-all: true
   enable:
-    - copyloopvar
-    - durationcheck
     - errcheck
-    - forcetypeassert
+    - errname
+    - exhaustive
     - godot
-    - gofmt
-    - gosimple
     - govet
     - ineffassign
-    - makezero
-    - misspell
-    - nilerr
-    - predeclared
+    - lll
     - staticcheck
-    - unconvert
-    - unparam
+    - testpackage
     - unused
-    - usetesting
+    - usestdlibvars
+    - whitespace
+
+formatters:
+  enable:
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/nint8835/terraform-provider-csp
